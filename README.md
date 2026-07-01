@@ -1,56 +1,147 @@
-# Hasu Chat Box
+# 🤖 Hasu — AI Chat Assistant
 
-Hasu is a beautiful, locally-hosted, human-like chat interface that leverages the power of the Google Gemini API to act as a highly intelligent AI assistant. It provides a ChatGPT-like experience with a clean UI, built using pure HTML, CSS, and Vanilla JavaScript on the frontend, and a simple Node.js static server on the backend.
+> A premium, full-screen AI chat assistant powered by **Google Gemini**, built with a secure Node.js backend, a beautiful dark glassmorphic UI, and 12-day persistent chat history.
 
-## Features
+![Hasu Chat Interface](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square) ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?style=flat-square&logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-4285F4?style=flat-square&logo=google&logoColor=white) ![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
 
-- **Gemini API Integration**: Uses the `gemini-2.5-flash` model for fast, accurate, and comprehensive AI responses.
-- **Modern UI**: A sleek, dark-themed chat interface with responsive design and typing indicators.
-- **Local HTTPS Server**: Runs locally over HTTPS with auto-generated self-signed certificates, ensuring secure connections.
-- **Conversation Memory**: Maintains chat history to allow for continuous, context-aware conversations.
+---
 
-## Prerequisites
+## 📸 About
 
-- [Node.js](https://nodejs.org/) installed on your machine.
-- A valid Google Gemini API Key. (Update `script.js` with your own key if needed).
+**Hasu** is a locally-hosted AI chat application that delivers a ChatGPT-like experience right in your browser. It combines a sleek, full-screen glassmorphic interface with the intelligence of Google's Gemini 2.5 Flash model — all running privately and securely on your own machine.
 
-## Installation & Setup
+Whether you want to ask questions, get explanations, write code, or just have a conversation, Hasu is built to handle it all.
 
-1. **Clone the repository** (if you haven't already):
-   ```bash
-   git clone <repository-url>
-   cd "Chat Box"
-   ```
+---
 
-2. **Install dependencies**:
-   The project uses `selfsigned` to generate SSL certificates for local development.
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-3. **Start the server**:
-   You can start the server and automatically open the chat box by running the included batch script (Windows):
-   ```bash
-   launch.bat
-   ```
-   Or manually via Node:
-   ```bash
-   npm start
-   ```
+| Feature | Description |
+|---|---|
+| 🧠 **Gemini AI** | Powered by Google Gemini 2.5 Flash for fast, accurate, and intelligent responses |
+| 💬 **ChatGPT-like UI** | Full-screen dark interface with collapsible sidebar, just like ChatGPT |
+| 💾 **12-Day Chat History** | All conversations are saved locally and auto-expire after 12 days |
+| 📂 **Sidebar History** | Browse past chats grouped by Today, Last 7 Days, and Older |
+| 🗑️ **Delete Chats** | Hover over any saved chat to delete it individually |
+| 🔒 **Secure HTTPS Server** | Runs on localhost with a self-signed SSL certificate |
+| 🛡️ **API Key Protection** | The Gemini API key is stored in a backend `.env` file — never exposed to the browser |
+| ✨ **Quick-Start Chips** | Tap a suggestion chip to instantly start a conversation |
+| 🖥️ **Markdown Rendering** | Renders **bold text**, `inline code`, and full code blocks from the AI |
+| 🔄 **New Chat Button** | Start a fresh conversation anytime without losing history |
+| 📜 **Auto-Pruning** | Old chats (12+ days) are automatically removed on startup |
 
-4. **Open in Browser**:
-   The server will start and automatically redirect you to the secure HTTPS connection:
-   - `https://hasu.local:8443`
-   - `https://127.0.0.1:8443`
+---
 
-## Configuration
+## 🛠️ Technologies Used
 
-To change the Gemini API key or adjust the model, edit the `API_KEY` and `API_URL` constants in `script.js`:
-```javascript
-const API_KEY = 'your-api-key-here';
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+### Frontend
+| Technology | Purpose |
+|---|---|
+| **HTML5** | Semantic page structure and layout |
+| **Vanilla CSS3** | Full custom styling — glassmorphism, dark theme, animations, responsive layout |
+| **Vanilla JavaScript (ES6+)** | All UI logic, API calls, chat rendering, localStorage management |
+| **Google Fonts (Inter)** | Premium typography for a modern, clean look |
+| **CSS Custom Properties** | Design token system for consistent theming |
+| **localStorage API** | Client-side persistence for 12-day chat history |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| **Node.js** | Runtime environment for the backend server |
+| **HTTPS (built-in)** | Secure local server with SSL encryption |
+| **HTTP (built-in)** | HTTP → HTTPS redirect server |
+| **`selfsigned` npm package** | Auto-generates local SSL certificates for `hasu.local` |
+| **`.env` file** | Stores the Gemini API key securely, away from the browser |
+| **`/api/chat` proxy route** | Backend endpoint that forwards requests to Google Gemini API |
+
+### AI / API
+| Technology | Purpose |
+|---|---|
+| **Google Gemini 2.5 Flash** | AI model used for generating intelligent, conversational responses |
+| **Gemini REST API** | `generativelanguage.googleapis.com` endpoint for generating content |
+
+### DevOps / Tooling
+| Tool | Purpose |
+|---|---|
+| **Git** | Version control |
+| **GitHub** | Remote repository and code hosting |
+| **npm** | Package manager for Node.js dependencies |
+
+---
+
+## 📁 Project Structure
+
+```
+Hasu/
+├── index.html          # Main UI — sidebar, chat area, input bar
+├── styles.css          # All styling — dark theme, glassmorphism, animations
+├── script.js           # Frontend logic — AI calls, history, rendering
+├── server.js           # Node.js backend — HTTPS server, /api/chat proxy
+├── package.json        # Project metadata and dependencies
+├── .env                # 🔒 Your API key (NOT committed to Git)
+├── .gitignore          # Excludes node_modules/, certs/, .env
+├── launch.bat          # One-click launcher for Windows
+└── certs/              # Auto-generated SSL certificates (NOT committed)
 ```
 
-## License
+---
 
-ISC License
+## 🚀 Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) v18 or higher
+- A **Google Gemini API Key** from [Google AI Studio](https://aistudio.google.com/)
+
+### Installation
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/utkarshkumarnigam-lab/Hasu.git
+cd Hasu
+```
+
+**2. Install dependencies**
+```bash
+npm install
+```
+
+**3. Create your `.env` file**
+
+Create a file named `.env` in the root directory and add your API key:
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+**4. Launch Hasu**
+
+On Windows, simply double-click `launch.bat`, or run:
+```bash
+node server.js
+```
+
+**5. Open in Browser**
+
+Navigate to: **`https://127.0.0.1:8443`**
+
+> ⚠️ Your browser may show a "Not Secure" warning on first launch because the SSL certificate is self-signed. You can permanently trust it by running:
+> ```bash
+> certutil -addstore -user root .\certs\cert.pem
+> ```
+
+---
+
+## 🔐 Security
+
+- Your **Gemini API key is never exposed** to the browser or frontend code. It lives exclusively in your `.env` file and is read only by the Node.js backend.
+- All traffic between your browser and the local server is encrypted over **HTTPS**.
+- The `.env` file and `certs/` directory are excluded from Git via `.gitignore`.
+
+---
+
+## 📄 License
+
+This project is licensed under the **ISC License**.
+
+---
+
+<p align="center">Built with ❤️ using Node.js, Vanilla JS, and Google Gemini</p>

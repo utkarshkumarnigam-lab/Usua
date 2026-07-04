@@ -8,8 +8,81 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebarToggle   = document.getElementById('sidebar-toggle');
     const sidebar         = document.getElementById('sidebar');
 
+    // API Settings Modal Selectors
+    const apiSettingsBtn    = document.getElementById('api-settings-btn');
+    const apiModalOverlay   = document.getElementById('api-modal-overlay');
+    const apiModalClose     = document.getElementById('api-modal-close');
+    const apiModalCancel    = document.getElementById('api-modal-cancel');
+    const apiModalSave      = document.getElementById('api-modal-save');
+    const customApiKeyInput  = document.getElementById('custom-api-key');
+    const useCustomKeyToggle = document.getElementById('use-custom-key-toggle');
+    const statusDot         = document.getElementById('status-dot');
+    const statusText        = document.getElementById('status-text');
+    const modelStatusDot    = document.getElementById('model-status-dot');
+    const modelBadgeText    = document.getElementById('model-badge-text');
+
     let messageHistory  = [];
     let currentChatId   = null;
+
+    // ─── API Settings State & Handlers ────────────────────────────────────────
+    let customGeminiKey = localStorage.getItem('hasu_custom_api_key') || '';
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    let useCustomKey = localStorage.getItem('hasu_use_custom_key') !== null
+        ? localStorage.getItem('hasu_use_custom_key') === 'true'
+        : !isLocalhost;
+
+    function initApiSettings() {
+        customApiKeyInput.value = customGeminiKey;
+        useCustomKeyToggle.checked = useCustomKey;
+        updateStatusIndicators();
+    }
+
+    function updateStatusIndicators() {
+        if (useCustomKey && customGeminiKey) {
+            statusDot.className = 'status-dot';
+            statusDot.style.background = '#10b981';
+            statusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
+            statusText.textContent = 'Direct API';
+            modelStatusDot.style.background = '#10b981';
+            modelStatusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
+            modelBadgeText.textContent = 'Gemini (Direct)';
+        } else if (useCustomKey && !customGeminiKey) {
+            statusDot.className = 'status-dot';
+            statusDot.style.background = '#f59e0b';
+            statusDot.style.boxShadow = '0 0 8px rgba(245,158,11,0.6)';
+            statusText.textContent = 'Key Required';
+            modelStatusDot.style.background = '#ef4444';
+            modelStatusDot.style.boxShadow = '0 0 8px rgba(239,68,68,0.6)';
+            modelBadgeText.textContent = 'Set API Key';
+        } else {
+            statusDot.className = 'status-dot';
+            statusDot.style.background = '#10b981';
+            statusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
+            statusText.textContent = 'Local Node';
+            modelStatusDot.style.background = '#10b981';
+            modelStatusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
+            modelBadgeText.textContent = 'Gemini (Local)';
+        }
+    }
+
+    function openApiModal() {
+        customApiKeyInput.value = customGeminiKey;
+        useCustomKeyToggle.checked = useCustomKey;
+        apiModalOverlay.classList.add('active');
+    }
+
+    function closeApiModal() {
+        apiModalOverlay.classList.remove('active');
+    }
+
+    function saveApiSettings() {
+        customGeminiKey = customApiKeyInput.value.trim();
+        useCustomKey = useCustomKeyToggle.checked;
+        localStorage.setItem('hasu_custom_api_key', customGeminiKey);
+        localStorage.setItem('hasu_use_custom_key', useCustomKey ? 'true' : 'false');
+        updateStatusIndicators();
+        closeApiModal();
+    }
 
     // ─── Constants ────────────────────────────────────────────────────────────
     const API_URL        = '/api/chat';
@@ -157,6 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── Backend Proxy API ────────────────────────────────────────────────────
 
     async function generateReply() {
+        if (useCustomKey && !customGeminiKey) {
+            setTimeout(() => openApiModal(), 800);
+            return "⚠️ Please configure your Gemini API Key in the API Settings (bottom-left) to chat! Direct API mode is active.";
+        }
+
         const contents = messageHistory.map(m => ({
             role: m.role === 'bot' ? 'model' : 'user',
             parts: [{ text: m.content }]
@@ -165,20 +243,30 @@ document.addEventListener('DOMContentLoaded', () => {
             parts: [{ text: "You are Hasu, a highly intelligent and helpful AI assistant. Answer questions accurately, provide explanations, write and debug code, and assist with any tasks. Be clear, comprehensive, and friendly. When presenting code, use proper code formatting. Use markdown-style bold (**text**) for emphasis when helpful. Keep responses concise but complete." }]
         };
         try {
-            const response = await fetch(API_URL, {
+            let fetchUrl = API_URL;
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = { systemInstruction, contents, generationConfig: { temperature: 0.7 } };
+
+            if (useCustomKey) {
+                fetchUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${customGeminiKey}`;
+            }
+
+            const response = await fetch(fetchUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ systemInstruction, contents, generationConfig: { temperature: 0.7 } })
+                headers: headers,
+                body: JSON.stringify(bodyData)
             });
             if (!response.ok) {
                 console.error('API Error:', await response.text());
-                return "Sorry, I hit a snag. Please try again in a moment. 😅";
+                return "Sorry, I hit a snag. Please check your API key and try again. 😅";
             }
             const data = await response.json();
             return data.candidates[0].content.parts[0].text;
         } catch (err) {
             console.error('Fetch error:', err);
-            return "Connection error — is the server running? 🔌";
+            return useCustomKey
+                ? "Connection error — are you connected to the internet? 🌐"
+                : "Connection error — is the local server running? 🔌";
         }
     }
 
@@ -311,8 +399,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
 
+    // Modal listeners
+    apiSettingsBtn.addEventListener('click', () => openApiModal());
+    apiModalClose.addEventListener('click', () => closeApiModal());
+    apiModalCancel.addEventListener('click', () => closeApiModal());
+    apiModalSave.addEventListener('click', () => saveApiSettings());
+    
+    // Close modal on clicking overlay background
+    apiModalOverlay.addEventListener('click', (e) => {
+        if (e.target === apiModalOverlay) closeApiModal();
+    });
+
     // ─── Boot ─────────────────────────────────────────────────────────────────
 
     pruneOldChats();      // clean up expired chats on load
     startNewChat();       // start fresh session (sidebar will show saved history)
+    initApiSettings();    // initialize API key and checkbox from storage
+
+    // Auto-prompt setup if on remote demo host with no key configured yet
+    if (!isLocalhost && !customGeminiKey) {
+        setTimeout(() => openApiModal(), 1000);
+    }
 });

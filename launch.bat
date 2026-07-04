@@ -1,6 +1,6 @@
 @echo off
-title Hasu Chat Server
-echo Starting Hasu Chat Server...
+title Usua Chat Server
+echo Starting Usua Chat Server...
 echo.
 
 :: Start a separate background window to wait 2 seconds, then open the browser

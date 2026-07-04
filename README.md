@@ -1,19 +1,19 @@
-# 🤖 Hasu — AI Chat Assistant
+# 🤖 Usua — AI Chat Assistant
 
 > A premium, full-screen AI chat assistant powered by **Google Gemini**, built with a Node.js backend, a beautiful dark glassmorphic UI, and 12-day persistent chat history.
 
-**Live Demo (No Setup Needed):** [https://hasu-production.up.railway.app](https://hasu-production.up.railway.app)
-**Alternative Demo (Requires API Key):** [https://utkarshkumarnigam-lab.github.io/Hasu/](https://utkarshkumarnigam-lab.github.io/Hasu/)
+**Live Demo (No Setup Needed):** [https://usua-production.up.railway.app](https://usua-production.up.railway.app)
+**Alternative Demo (Requires API Key):** [https://utkarshkumarnigam-lab.github.io/Usua/](https://utkarshkumarnigam-lab.github.io/Usua/)
 
-![Hasu Chat Interface](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square) ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?style=flat-square&logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-4285F4?style=flat-square&logo=google&logoColor=white) ![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
+![Usua Chat Interface](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square) ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?style=flat-square&logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-4285F4?style=flat-square&logo=google&logoColor=white) ![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
 
 ---
 
 ## 📸 About
 
-**Hasu** is a locally-hosted AI chat application that delivers a ChatGPT-like experience right in your browser. It combines a sleek, full-screen glassmorphic interface with the intelligence of Google's Gemini 2.5 Flash model — all running privately and securely on your own machine.
+**Usua** is a locally-hosted AI chat application that delivers a ChatGPT-like experience right in your browser. It combines a sleek, full-screen glassmorphic interface with the intelligence of Google's Gemini 2.5 Flash model — all running privately and securely on your own machine.
 
-Whether you want to ask questions, get explanations, write code, or just have a conversation, Hasu is built to handle it all.
+Whether you want to ask questions, get explanations, write code, or just have a conversation, Usua is built to handle it all.
 
 ---
 
@@ -73,7 +73,7 @@ Whether you want to ask questions, get explanations, write code, or just have a 
 ## 📁 Project Structure
 
 ```
-Hasu/
+Usua/
 ├── index.html          # Main UI — sidebar, chat area, input bar
 ├── styles.css          # All styling — dark theme, glassmorphism, animations
 ├── script.js           # Frontend logic — AI calls, history, rendering
@@ -96,8 +96,8 @@ Hasu/
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/utkarshkumarnigam-lab/Hasu.git
-cd Hasu
+git clone https://github.com/utkarshkumarnigam-lab/Usua.git
+cd Usua
 ```
 
 **2. Install dependencies**
@@ -112,7 +112,7 @@ Create a file named `.env` in the root directory and add your API key:
 GEMINI_API_KEY=your_api_key_here
 ```
 
-**4. Launch Hasu**
+**4. Launch Usua**
 
 On Windows, simply double-click `launch.bat`, or run:
 ```bash
@@ -125,7 +125,7 @@ On the **same computer**: **`http://127.0.0.1:3000`**
 
 On your **phone or another device** (same WiFi): the server will print a Network URL like:
 ```
-✅ Hasu Chat is running!
+✅ Usua Chat is running!
    ➜  Local:   http://127.0.0.1:3000
    ➜  Network: http://192.168.x.x:3000  ← open this on your phone
 ```
@@ -134,7 +134,7 @@ Just open that Network URL in your phone's browser — no setup needed!
 > ✅ No SSL warnings or certificate setup needed — it just works!
 
 > 💡 **Easiest option for phones:** Use the live GitHub Pages link instead — no server required:
-> **https://utkarshkumarnigam-lab.github.io/Hasu/**
+> **https://utkarshkumarnigam-lab.github.io/Usua/**
 
 ---
 

@@ -74,7 +74,7 @@ function serve(req, res) {
 
 http.createServer(serve).listen(PORT, '0.0.0.0', () => {
     const lan = getLanIp();
-    console.log('\n✅ Hasu Chat is running!');
+    console.log('\n✅ Usua Chat is running!');
     console.log(`   ➜  Local:   http://127.0.0.1:${PORT}`);
     if (lan) {
         console.log(`   ➜  Network: http://${lan}:${PORT}  ← open this on your phone`);

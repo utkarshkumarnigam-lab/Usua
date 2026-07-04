@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── API Settings State & Handlers ────────────────────────────────────────
     const isLocalhost   = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const isGithubPages = window.location.hostname.includes('github.io');
-    let customGeminiKey = localStorage.getItem('hasu_custom_api_key') || '';
+    let customGeminiKey = localStorage.getItem('usua_custom_api_key') || '';
     // Use backend proxy by default everywhere EXCEPT GitHub Pages (which has no backend)
-    let useCustomKey = localStorage.getItem('hasu_use_custom_key') !== null
-        ? localStorage.getItem('hasu_use_custom_key') === 'true'
+    let useCustomKey = localStorage.getItem('usua_use_custom_key') !== null
+        ? localStorage.getItem('usua_use_custom_key') === 'true'
         : isGithubPages;
 
     function initApiSettings() {
@@ -91,15 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function saveApiSettings() {
         customGeminiKey = customApiKeyInput.value.trim();
         useCustomKey = useCustomKeyToggle.checked;
-        localStorage.setItem('hasu_custom_api_key', customGeminiKey);
-        localStorage.setItem('hasu_use_custom_key', useCustomKey ? 'true' : 'false');
+        localStorage.setItem('usua_custom_api_key', customGeminiKey);
+        localStorage.setItem('usua_use_custom_key', useCustomKey ? 'true' : 'false');
         updateStatusIndicators();
         closeApiModal();
     }
 
     // ─── Constants ────────────────────────────────────────────────────────────
     const API_URL        = '/api/chat';
-    const STORAGE_KEY    = 'hasu_chats';
+    const STORAGE_KEY    = 'usua_chats';
     const MAX_AGE_DAYS   = 12;
     const MAX_AGE_MS     = MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
 
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             parts: [{ text: m.content }]
         }));
         const systemInstruction = {
-            parts: [{ text: "You are Hasu, a highly intelligent and helpful AI assistant. Answer questions accurately, provide explanations, write and debug code, and assist with any tasks. Be clear, comprehensive, and friendly. When presenting code, use proper code formatting. Use markdown-style bold (**text**) for emphasis when helpful. Keep responses concise but complete." }]
+            parts: [{ text: "You are Usua, a highly intelligent and helpful AI assistant. Answer questions accurately, provide explanations, write and debug code, and assist with any tasks. Be clear, comprehensive, and friendly. When presenting code, use proper code formatting. Use markdown-style bold (**text**) for emphasis when helpful. Keep responses concise but complete." }]
         };
         try {
             let fetchUrl = API_URL;
@@ -315,8 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function showWelcomeCard() {
         chatMessages.innerHTML = `
             <div class="welcome-card">
-                <div class="welcome-avatar">H</div>
-                <h1 class="welcome-title">Hi, I'm Hasu</h1>
+                <div class="welcome-avatar">U</div>
+                <h1 class="welcome-title">Hi, I'm Usua</h1>
                 <p class="welcome-subtitle">Your personal AI assistant powered by Gemini. Ask me anything — I'm here to help.</p>
                 <div class="welcome-chips">
                     <button class="chip" data-prompt="Explain quantum computing in simple terms">💡 Explain something</button>
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isUser) {
             const avatar = document.createElement('div');
             avatar.className = 'bot-avatar';
-            avatar.textContent = 'H';
+            avatar.textContent = 'U';
             row.appendChild(avatar);
         }
         const contentDiv = document.createElement('div');

@@ -4,13 +4,13 @@
 
 **Live Demo (No Setup Needed):** [https://usua-production.up.railway.app](https://usua-production.up.railway.app)
 
-![Usua Chat Interface](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square) ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?style=flat-square&logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-4285F4?style=flat-square&logo=google&logoColor=white) ![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
+![Usua Chat Interface](https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square) ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?style=flat-square&logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered%20by-Gemini%203.5%20Flash-4285F4?style=flat-square&logo=google&logoColor=white) ![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
 
 ---
 
 ## 📸 About
 
-**Usua** is a locally-hosted AI chat application that delivers a ChatGPT-like experience right in your browser. It combines a sleek, full-screen glassmorphic interface with the intelligence of Google's Gemini 2.5 Flash model — all running privately and securely on your own machine.
+**Usua** is a locally-hosted AI chat application that delivers a ChatGPT-like experience right in your browser. It combines a sleek, full-screen glassmorphic interface with the intelligence of Google's Gemini 3.5 Flash model — all running privately and securely on your own machine.
 
 Whether you want to ask questions, get explanations, write code, or just have a conversation, Usua is built to handle it all.
 
@@ -57,7 +57,7 @@ Whether you want to ask questions, get explanations, write code, or just have a 
 ### AI / API
 | Technology | Purpose |
 |---|---|
-| **Google Gemini 2.5 Flash** | AI model used for generating intelligent, conversational responses |
+| **Google Gemini 3.5 Flash** | AI model used for generating intelligent, conversational responses |
 | **Gemini REST API** | `generativelanguage.googleapis.com` endpoint for generating content |
 
 ### DevOps / Tooling

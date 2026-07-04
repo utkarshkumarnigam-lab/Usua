@@ -43,7 +43,7 @@ function serve(req, res) {
             try {
                 const payload = JSON.parse(body);
                 const API_KEY = process.env.GEMINI_API_KEY;
-                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${API_KEY}`;
                 
                 const apiRes = await fetch(API_URL, {
                     method: 'POST',

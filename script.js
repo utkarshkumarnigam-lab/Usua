@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = 'API Key Set';
             modelStatusDot.style.background = '#10b981';
             modelStatusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
-            modelBadgeText.textContent = 'Gemini 2.5 Flash';
+            modelBadgeText.textContent = 'Gemini 3.5 Flash';
         } else if (isGithubPages && !customGeminiKey) {
             statusDot.style.background = '#f59e0b';
             statusDot.style.boxShadow = '0 0 8px rgba(245,158,11,0.6)';
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = isLocalhost ? 'Local Node' : 'Online';
             modelStatusDot.style.background = '#10b981';
             modelStatusDot.style.boxShadow = '0 0 8px rgba(16,185,129,0.6)';
-            modelBadgeText.textContent = 'Gemini 2.5 Flash';
+            modelBadgeText.textContent = 'Gemini 3.5 Flash';
         }
     }
 
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let bodyData = { systemInstruction, contents, generationConfig: { temperature: 0.7 } };
 
             if (resolvedKey) {
-                fetchUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${resolvedKey}`;
+                fetchUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${resolvedKey}`;
             }
 
             const response = await fetch(fetchUrl, {
